@@ -1,155 +1,75 @@
-# Stock Portfolio Manager
+# Chatbot Using Intents
 
-## Table of Contents
-
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Requirements](#requirements)
-4. [Installation](#installation)
-5. [Usage](#usage)
-6. [Project Structure](#project-structure)
-7. [API References](#api-references)
-8. [Contributing](#contributing)
-9. [License](#license)
-
-## Introduction
-
-The Stock Portfolio Manager is a comprehensive application designed to help users manage their stock portfolios efficiently. It leverages real-time financial data, provides portfolio valuation updates, and offers insightful visualizations. Built using Python, it integrates with various APIs to fetch the latest market data and uses machine learning models for predictive analysis.
+## Overview
+This project involves the development of a chatbot that uses Natural Language Processing (NLP) and machine learning to understand user queries and respond appropriately. The chatbot categorizes user inputs into predefined topics known as "intents" and provides responses that are contextually relevant.
 
 ## Features
-
-- Real-time stock price updates
-- Portfolio valuation and performance tracking
-- Integration with financial data APIs
-- User-friendly interface with interactive charts
-- Secure user authentication
-- Natural language processing for querying stock information
-- Historical data analysis
-- Automated portfolio rebalancing suggestions
-- News aggregation related to stocks in the portfolio
-
-## Requirements
-
-- Python 3.7 or higher
-- MySQL server
-- Internet connection for API data fetching
-
-### Python Packages:
-
-- `speech_recognition`
-- `webbrowser`
-- `openai`
-- `os`
-- `datetime`
-- `random`
-- `pyttsx3`
-- `mysql-connector-python`
-- `flask`
-- `flask-login`
-- `pandas`
-- `matplotlib`
-
-## Installation
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/adarshsharma-18/stock-portfolio-manager.git
-cd stock-portfolio-manager
-```
-
-### Create a Virtual Environment
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-```
-
-### Install the Required Packages
-
-```bash
-pip install -r requirements.txt
-```
-
-### Set Up the MySQL Database
-
-Create a database in your MySQL server and run the following SQL command to create the necessary table:
-
-```sql
-CREATE DATABASE stock_portfolio_manager;
-
-USE stock_portfolio_manager;
-
-CREATE TABLE voice_assistant (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_command TEXT NOT NULL,
-    ai_response TEXT NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-### Configuration
-
-Create a `config.py` file in the root directory and add your OpenAI API key:
-
-```python
-apikey = 'your_openai_api_key'
-```
-
-## Usage
-
-### Starting the Application
-
-Run the main application script:
-
-```bash
-python app.py
-```
-
-### Using the Voice Assistant
-
-Upon running, the voice assistant will introduce itself as Jarvis and start listening for your commands. You can interact with it using natural language commands such as:
-
-- "Open YouTube"
-- "What's the time?"
-- "Tell me a joke"
-- "Who is Elon Musk?"
-
-The assistant will respond with appropriate actions or information, and it will log the user commands and AI responses to the MySQL database.
+- **Intent Recognition**: The chatbot can identify various intents such as greetings, farewells, inquiries, and commands based on user input.
+- **Contextual Responses**: Provides appropriate responses according to the recognized intent.
+- **Versatile Functionality**: Includes features like telling jokes, providing weather updates, and answering questions about the chatbot's abilities.
 
 ## Project Structure
+- `intents.json`: Contains the data set of user intents, including patterns (user inputs) and responses.
+- `words.pkl` and `classes.pkl`: Pickle files containing processed vocabulary and intent classes.
+- `chatbot_model.h5`: The trained neural network model for predicting intents.
+- `chatbot.py`: The main script for running the chatbot.
 
+## Setup and Installation
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/adarshsharma-18/chatbot_using_intents-main
+   cd chatbot-using-intents
+   ```
+
+2. **Install required dependencies**:
+   Ensure you have Python installed, then run:
+   ```bash
+   pip install numpy nltk tensorflow keras
+   ```
+
+3. **Download NLTK Data**:
+   ```python
+   import nltk
+   nltk.download('punkt')
+   nltk.download('wordnet')
+   ```
+
+## How It Works
+1. **Data Preprocessing**:
+   - Tokenizes the patterns in `intents.json` into words.
+   - Lemmatizes the words to their root form.
+   - Creates a bag-of-words model to convert textual data into numerical form for the model.
+
+2. **Model Training**:
+   - A neural network is trained using the processed data to classify intents based on user input.
+   - The model uses a feed-forward neural network with dense layers and dropout for regularization.
+
+3. **Intent Prediction**:
+   - The trained model predicts the intent of new user inputs by matching the input against the known patterns.
+   - If the confidence level of the prediction exceeds a certain threshold, the chatbot responds with an appropriate response from `intents.json`.
+
+4. **Response Generation**:
+   - Based on the predicted intent, the chatbot selects a response from a predefined list associated with that intent.
+
+## Usage
+Run the `chatbot.py` script to start the chatbot:
+```bash
+python chatbot.py
 ```
-stock-portfolio-manager/
-│
-├── Openai/
-│   ├── ... (Stored AI responses)
-│
-├── static/
-│   ├── css/
-│   ├── js/
-│   └── ... (Static files for the web interface)
-│
-├── templates/
-│   ├── index.html
-│   └── ... (HTML templates)
-│
-├── app.py
-├── config.py
-├── requirements.txt
-└── README.md
-```
+The chatbot will prompt you to enter a message. It will process the input, predict the intent, and provide a relevant response.
 
-## API References
+## Libraries and Tools
+- **NLTK**: Used for text preprocessing, including tokenization and lemmatization.
+- **TensorFlow and Keras**: Used for building and training the neural network model.
+- **NumPy**: Used for numerical computations and data manipulation.
 
-- [OpenAI API](https://beta.openai.com/)
-- [Alpha Vantage API](https://www.alphavantage.co/documentation/)
-- [Yahoo Finance API](https://developer.yahoo.com/finance-api/)
+## Future Improvements
+- **Expand Intents**: Add more intents and responses to handle a wider range of user queries.
+- **Context Management**: Implement context tracking to manage multi-turn conversations better.
+- **API Integration**: Integrate external APIs for real-time functionalities like weather updates and news.
 
-## Contributing
+## Contribution
+Contributions are welcome! Please fork the repository and create a pull request with your changes.
 
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+## Contact
+For any questions or suggestions, please contact Adarsh Sharma at adarshsharma1124@gmail.com.
